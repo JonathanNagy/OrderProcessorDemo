@@ -55,6 +55,25 @@ namespace OrderProcessor.Tests
             // Mail service should be called once
             _mockMailService.Verify(x => x.SendMail(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
         }
+        
+        [TestMethod]
+        public void OrderProcessor_PaymentFailed_EmailNotSent()
+        {
+            // Arrange
+            // Return inventory sufficient on CheckInventory
+            _mockWarehouseRepository.Setup(x => x.CheckInventory(It.IsAny<string>(), It.IsAny<int>())).Returns(true);
+            // Return true on ChargePayment
+            _mockPaymentProcessor.Setup(x => x.ChargePayment(It.IsAny<string>(), It.IsAny<decimal>())).Returns(false);
+
+            // Act
+            _orderProcessingService.ProcessOrder(CreateOrderRequest());
+
+            // Assert
+            // Payment service should be called once
+            _mockPaymentProcessor.Verify(x => x.ChargePayment(It.IsAny<string>(), It.IsAny<decimal>()), Times.Once);
+            // Mail service should not be called
+            _mockMailService.Verify(x => x.SendMail(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+        }
 
         [TestMethod]
         public void OrderProcessor_InventoryNotSufficient_PaymentNotCharged()
