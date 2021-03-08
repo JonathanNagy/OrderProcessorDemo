@@ -12,16 +12,14 @@ namespace OrderProcessor.Service
 {
     public class OrderProcessingService : IOrderProcessor
     {
-        private IWarehouseRepository _warehouseRepository;
-        private IPaymentProcessor _paymentProcessor;
-        private IMailService _mailService;
+        private readonly IWarehouseRepository _warehouseRepository;
+        private readonly IPaymentProcessor _paymentProcessor;
+        private readonly IMailService _mailService;
 
-        public OrderProcessingService(IWarehouseRepository warehouseRepository, IPaymentProcessor paymentProcessor, IMailService mailService)
-        {
-            _warehouseRepository = warehouseRepository;
-            _paymentProcessor = paymentProcessor;
-            _mailService = mailService;
-        }
+        public OrderProcessingService(IWarehouseRepository warehouseRepository, IPaymentProcessor paymentProcessor,
+            IMailService mailService) =>
+            (_warehouseRepository, _paymentProcessor, _mailService) =
+            (warehouseRepository, paymentProcessor, mailService);
 
         public ServiceResponse ProcessOrder(OrderRequest request)
         {

@@ -34,7 +34,6 @@ namespace OrderProcessor
         public OrderProcessorRunner(IOrderProcessor orderProcessor) =>
             _orderProcessor = orderProcessor;
 
-
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
             var request = new OrderRequest()
