@@ -192,9 +192,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\WarehouseRepository.cs" />
-    <Compile Include="Service\MailService.cs" />
+    <Compile Include="Service\PrintToConsoleMailService.cs" />
     <Compile Include="Service\OrderProcessingService.cs" />
-    <Compile Include="Service\PaymentProcessor.cs" />
+    <Compile Include="Service\DummyPaymentProcessor.cs" />
     <Compile Include="Service\ServiceResponse.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -9,14 +9,26 @@ namespace OrderProcessor.Repositories
 {
     public class WarehouseRepository : IWarehouseRepository
     {
+        private readonly Dictionary<string, int> _productCounts = new Dictionary<string, int>();
+
         public void AddInventory(string productCode, int quantity)
         {
-            throw new NotImplementedException();
+            if(_productCounts.ContainsKey(productCode))
+            {
+                _productCounts[productCode] += quantity;
+            }
+            else
+            {
+                _productCounts[productCode] = quantity;
+            }
         }
 
         public bool CheckInventory(string productCode, int quantityNeeded)
         {
-            throw new NotImplementedException();
+            if (!_productCounts.ContainsKey(productCode)) return false;
+
+            var quantityAvailable = _productCounts[productCode];
+            return quantityAvailable >= quantityNeeded;
         }
     }
 }

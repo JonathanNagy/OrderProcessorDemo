@@ -17,7 +17,7 @@ namespace OrderProcessor.Models
 
         public override string ToString()
         {
-            return (AddressLine1 + AddressLine2).Trim() + "\n" +
+            return (AddressLine1 + " " + AddressLine2).Trim() + "\n" +
                 City + ", " + State + " " + PostalCode + "\n" +
                 Country;
         }
